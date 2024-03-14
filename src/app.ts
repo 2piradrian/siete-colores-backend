@@ -1,4 +1,5 @@
 import { env } from './config';
+import { MongoDatabase } from './data';
 import { Server, AppRouter } from './presentation';
 
 (async () => {
@@ -7,11 +8,9 @@ import { Server, AppRouter } from './presentation';
 
 async function main() {
 
-    //const mongo = new MongoDatabase();
-    //await mongo.connect();
-    //
-    //const postgres = new PostgreDatabase();
-    //await postgres.connect();
+    const mongo = new MongoDatabase();
+    await mongo.connect();
+    
 
     const server = new Server({
         port: env.PORT,
