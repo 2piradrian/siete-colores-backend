@@ -14,7 +14,7 @@ export class BudgetEntity {
 
         return new BudgetEntity(
             _id || id,
-            products.map((product: any) => BudgetProductEntity.fromObject(product)),
+            products,
             client,
             date,
             total

@@ -13,7 +13,7 @@ export class BudgetProductEntity {
 
         return new BudgetProductEntity(
             _id || id,
-            ProductEntity.fromObject(product),
+            product,
             quantity,
             total
         );
