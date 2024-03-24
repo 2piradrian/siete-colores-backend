@@ -5,7 +5,7 @@ export class DeleteProductDTO {
         private readonly code: string,
     ){}
 
-    static fromObject(object: {[key: string]: any}): [string?, DeleteProductDTO?] {
+    static create(object: {[key: string]: any}): [string?, DeleteProductDTO?] {
         const { code } = object;
 
         if (!code) {

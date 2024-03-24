@@ -8,7 +8,7 @@ export class UpdateProductDTO {
         private readonly size: string
     ){}
 
-    static fromObject(object: {[key: string]: any}): [string?, UpdateProductDTO?] {
+    static create(object: {[key: string]: any}): [string?, UpdateProductDTO?] {
         const { code, name, price, size } = object;
 
         if (!code || !name || !price || !size) {

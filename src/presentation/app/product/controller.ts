@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ProductService } from "./service";
-import { ErrorHandler } from "../../../domain";
+import { CreateProductDTO, DeleteProductDTO, ErrorHandler, GetProductByCodeDTO, UpdateProductDTO } from "../../../domain";
 
 export class ProductController{
     constructor(
@@ -8,17 +8,57 @@ export class ProductController{
     ){}
 
     getAll = (req: Request, res: Response) => {
-        this.productService.getByCode()
+        this.productService.getAll()
         .then((products) => res.status(200).json(products))
         .catch(error => ErrorHandler.handle(error, res));
     }
 
-    getByCode = (req: Request, res: Response) => {}
+    getByCode = (req: Request, res: Response) => {
+        const [error, dto] = GetProductByCodeDTO.create(req.params);
 
-    create = (req: Request, res: Response) => {}
+        if (error) {
+            return ErrorHandler.handle(error, res);
+        }
 
-    update = (req: Request, res: Response) => {}
+        this.productService.getByCode(dto!)
+        .then((product) => res.status(200).json(product))
+        .catch(error => ErrorHandler.handle(error, res));
+    }
 
-    delete = (req: Request, res: Response) => {}
+    create = (req: Request, res: Response) => {
+        const [error, dto] = CreateProductDTO.create(req.body);
+
+        if (error) {
+            return ErrorHandler.handle(error, res);
+        }
+
+        this.productService.create(dto!)
+        .then(() => res.status(201).send())
+        .catch(error => ErrorHandler.handle(error, res));
+    }
+
+    update = (req: Request, res: Response) => {
+        const [error, dto] = UpdateProductDTO.create(req.body);
+
+        if (error) {
+            return ErrorHandler.handle(error, res);
+        }
+
+        this.productService.update(dto!)
+        .then(() => res.status(204).send())
+        .catch(error => ErrorHandler.handle(error, res));
+    }
+
+    delete = (req: Request, res: Response) => {
+        const [error, dto] = DeleteProductDTO.create(req.params);
+
+        if (error) {
+            return ErrorHandler.handle(error, res);
+        }
+
+        this.productService.delete(dto!)
+        .then(() => res.status(204).send())
+        .catch(error => ErrorHandler.handle(error, res));
+    }
 
 }

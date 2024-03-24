@@ -1,14 +1,16 @@
+import { CreateProductDTO, DeleteProductDTO, GetProductByCodeDTO, UpdateProductDTO } from "../../../domain";
+
 export class ProductService {
     constructor(){}
 
     public async getAll() {}
 
-    public async getByCode() {}
+    public async getByCode(dto: GetProductByCodeDTO) {}
 
-    public async create() {}
+    public async create(dto: CreateProductDTO) {}
 
-    public async update() {}
+    public async update(dto: UpdateProductDTO) {}
 
-    public async delete() {}
+    public async delete(dto: DeleteProductDTO) {}
 
 }

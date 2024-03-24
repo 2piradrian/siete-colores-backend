@@ -1,12 +1,12 @@
 import { ErrorType } from "../../error/error-type";
 
-export class GetByCodeDTO {
+export class GetProductByCodeDTO {
     private constructor(
         private readonly code: string,
     ){}
 
-    static fromObject(object: {[key: string]: any}): [string?, GetByCodeDTO?] {
-        const { code, name, price, size } = object;
+    static create(object: {[key: string]: any}): [string?, GetProductByCodeDTO?] {
+        const { code } = object;
 
         if (!code) {
             return [ErrorType.MissingFields];
@@ -16,10 +16,6 @@ export class GetByCodeDTO {
             return [ErrorType.InvalidFields];
         }
 
-        if (price <= 0) {
-            return [ErrorType.InvalidFields];
-        }
-
-        return [undefined, new GetByCodeDTO(code)];
+        return [undefined, new GetProductByCodeDTO(code)];
     }
 }
