@@ -5,8 +5,8 @@ export class BudgetEntity {
         private readonly id: string,
         private readonly products: BudgetProductEntity[],
         private readonly client: string,
-        private readonly date: Date,
         private readonly total: number,
+        private readonly date: Date,
     ) {}
 
     static fromObject(object: {[key: string]: any}): BudgetEntity {
