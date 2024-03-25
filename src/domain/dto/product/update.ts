@@ -2,10 +2,10 @@ import { ErrorType } from "../../error/error-type";
 
 export class UpdateProductDTO {
     private constructor(
-        private readonly code: string,
-        private readonly name: string,
-        private readonly price: number,
-        private readonly size: string
+        public code: string,
+        public name: string,
+        public price: number,
+        public size: string
     ){}
 
     static create(object: {[key: string]: any}): [string?, UpdateProductDTO?] {

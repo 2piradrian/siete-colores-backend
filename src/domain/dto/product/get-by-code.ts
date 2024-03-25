@@ -2,7 +2,7 @@ import { ErrorType } from "../../error/error-type";
 
 export class GetProductByCodeDTO {
     private constructor(
-        private readonly code: string,
+        public code: string,
     ){}
 
     static create(object: {[key: string]: any}): [string?, GetProductByCodeDTO?] {
