@@ -1,4 +1,4 @@
-import { CreateProductDTO, DeleteProductDTO, GetProductByCodeDTO, ProductEntity, UpdateProductDTO } from "../../../domain";
+import { CreateProductDTO, DeleteProductDTO, GetProductByCodeDTO, ProductEntity, UpdatePricesProductDTO, UpdateProductDTO } from "../../../domain";
 import { ProductRepository_I } from "../../../infrastructure";
 
 export class ProductService {
@@ -46,7 +46,26 @@ export class ProductService {
         }
     }
 
-    public async updatePrices() {} // TODO: Implement this method and its dto
+    public async updatePrices(dto: UpdatePricesProductDTO) {
+        try {
+            const products = await this.repository.getBySeries(dto.series);
+
+            if (!products || !products.length) {
+                return;
+            }
+
+            products.forEach(product => {
+                product.price = product.price + (product.price * dto.percent);
+            });
+
+            return await this.repository.updateList(products);
+
+        }
+        catch(error){
+            throw error
+        }
+    
+    }
 
     public async delete(dto: DeleteProductDTO) {
         try {

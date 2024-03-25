@@ -1,11 +1,11 @@
 export class ProductEntity {
     private constructor(
-        private readonly id: string,
-        private readonly code: string,
-        private readonly name: string,
-        private readonly price: number,
-        private readonly category: string,
-        private readonly size: string
+        public id: string,
+        public code: string,
+        public name: string,
+        public price: number,
+        public category: string,
+        public size: string
     ){}
 
     static fromObject(object: {[key: string]: any}): ProductEntity {
