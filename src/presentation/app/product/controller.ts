@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ProductService } from "./service";
-import { CreateProductDTO, DeleteProductDTO, ErrorHandler, GetProductByCodeDTO, UpdateProductDTO } from "../../../domain";
+import { CreateProductDTO, DeleteProductDTO, ErrorHandler, GetProductByCodeDTO, UpdatePricesDTO, UpdateProductDTO } from "../../../domain";
 
 export class ProductController{
     constructor(
@@ -45,6 +45,18 @@ export class ProductController{
         }
 
         this.productService.update(dto!)
+        .then(() => res.status(204).send())
+        .catch(error => ErrorHandler.handle(error, res));
+    }
+
+    updatePrices = (req: Request, res: Response) => {
+        const [error, dto] = UpdatePricesDTO.create(req.body);
+
+        if (error) {
+            return ErrorHandler.handle(error, res);
+        }
+
+        this.productService.updatePrices(dto!)
         .then(() => res.status(204).send())
         .catch(error => ErrorHandler.handle(error, res));
     }

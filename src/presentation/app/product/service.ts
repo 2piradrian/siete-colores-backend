@@ -1,4 +1,4 @@
-import { CreateProductDTO, DeleteProductDTO, GetProductByCodeDTO, ProductEntity, UpdatePricesProductDTO, UpdateProductDTO } from "../../../domain";
+import { CreateProductDTO, DeleteProductDTO, GetProductByCodeDTO, ProductEntity, UpdatePricesDTO, UpdateProductDTO } from "../../../domain";
 import { ProductRepository_I } from "../../../infrastructure";
 
 export class ProductService {
@@ -46,7 +46,7 @@ export class ProductService {
         }
     }
 
-    public async updatePrices(dto: UpdatePricesProductDTO) {
+    public async updatePrices(dto: UpdatePricesDTO) {
         try {
             const products = await this.repository.getBySeries(dto.series);
 

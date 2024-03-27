@@ -3,4 +3,5 @@ export enum ErrorType {
 	InvalidFields           = "Invalid fields",
 	InternalError           = "Internal error",
 	Unknown                 = "Unknown error",
+	Unauthorized            = "Unauthorized",
 }

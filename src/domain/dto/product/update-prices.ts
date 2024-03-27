@@ -1,12 +1,12 @@
 import { ErrorType } from "../../error/error-type";
 
-export class UpdatePricesProductDTO {
+export class UpdatePricesDTO {
     private constructor(
         public series: string,
         public percent: number,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, UpdatePricesProductDTO?] {
+    static create(object: {[key: string]: any}): [string?, UpdatePricesDTO?] {
         const { series, percent } = object;
 
         if (!series || !percent) {
@@ -17,6 +17,6 @@ export class UpdatePricesProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdatePricesProductDTO(series, percent)];
+        return [undefined, new UpdatePricesDTO(series, percent)];
     }
 }
