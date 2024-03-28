@@ -5,7 +5,7 @@ export class MongoProductDataSource implements ProductDataSource {
 
     public async getAll(): Promise<ProductEntity[]> {
         try {
-            const products = await ProductModel.find();
+            const products = await ProductModel.find().sort({ code: 1 }) || [];
 
             return products.map(product => ProductEntity.fromObject(product));
         }

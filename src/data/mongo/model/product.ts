@@ -17,7 +17,11 @@ const productSchema = new mongoose.Schema({
     size: {
         type: String,
         required: true,
-    }
+    },
+    category: {
+        type: String,
+        required: true,
+    },
 });
 
 export const ProductModel = mongoose.model("Product", productSchema);
