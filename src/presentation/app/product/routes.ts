@@ -11,9 +11,13 @@ export class ProductRoutes {
         const controller = new ProductController(service)
 
         router.get("/get-all", controller.getAll)
+        router.get("/get-by-code", controller.getByCode)
+
         router.post("/create", [SecretValidator.validate], controller.create)
+
         router.put("/update", [SecretValidator.validate], controller.update)
         router.put("/update-prices", [SecretValidator.validate], controller.updatePrices)
+        
         router.delete("/delete", [SecretValidator.validate], controller.delete)
 
         return router
