@@ -14,7 +14,7 @@ export class ProductController{
     }
 
     getByCode = (req: Request, res: Response) => {
-        const [error, dto] = GetProductByCodeDTO.create(req.params);
+        const [error, dto] = GetProductByCodeDTO.create(req.query);
 
         if (error) {
             return ErrorHandler.handle(error, res);

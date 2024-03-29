@@ -5,24 +5,27 @@ export class UpdateProductDTO {
         public code: string,
         public name: string,
         public price: number,
-        public size: string
+        public size: string,
+        public category: string
     ){}
 
     static create(object: {[key: string]: any}): [string?, UpdateProductDTO?] {
-        const { code, name, price, size } = object;
+        const { code, name, price, size, category } = object;
 
-        if (!code || !name || !price || !size) {
+        if (!code || !name || price === undefined || !size || !category) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof code !== 'string' || typeof name !== 'string' || typeof price !== 'number' || typeof size !== 'string') {
+        const priceNumber = parseFloat(price);
+
+        if (typeof code !== 'string' || typeof name !== 'string' || typeof priceNumber !== 'number' || typeof size !== 'string' || typeof category !== 'string') {
             return [ErrorType.InvalidFields];
         }
 
-        if (price <= 0) {
+        if (priceNumber <= 0) {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdateProductDTO(code, name, price, size)];
+        return [undefined, new UpdateProductDTO(code, name, priceNumber, size, category)];
     }
 }
