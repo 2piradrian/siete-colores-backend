@@ -8,7 +8,7 @@ export class BudgetRepository_I implements BudgetRepository {
         this.dataSource = new MongoBudgetDataSource();
     }
 
-    public getAll(): Promise<BudgetEntity[]> {
+    public getAll(): Promise<BudgetEntity[] | []> {
         return this.dataSource.getAll();
     }
 

@@ -1,11 +1,11 @@
 import { ErrorType } from "../../error/error-type";
 
-export class DeleteBudgetDTO {
+export class GetBudgetByIdDTO {
     private constructor(
         public id: string,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, DeleteBudgetDTO?] {
+    static create(object: {[key: string]: any}): [string?, GetBudgetByIdDTO?] {
         const { id } = object;
 
         if (!id) {
@@ -16,6 +16,6 @@ export class DeleteBudgetDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new DeleteBudgetDTO(id)];
+        return [undefined, new GetBudgetByIdDTO(id)];
     }
 }

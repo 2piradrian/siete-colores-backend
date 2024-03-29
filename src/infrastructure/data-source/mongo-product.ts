@@ -29,6 +29,21 @@ export class MongoProductDataSource implements ProductDataSource {
         }
     }
 
+    public async getByCodes(codes: string[]): Promise<ProductEntity[]> {
+        try {
+            const products = await ProductModel.find({ code: { $in: codes } });
+
+            if (!products || !products.length) {
+                return [];
+            }
+
+            return products.map(product => ProductEntity.fromObject(product));
+        }
+        catch(error){
+            throw error
+        }
+    }
+
     public async getBySeries(series: string): Promise<ProductEntity[] | undefined> {
         try {
             const products = await ProductModel.find({ 
