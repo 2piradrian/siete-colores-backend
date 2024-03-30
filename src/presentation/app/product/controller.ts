@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ProductService } from "./service";
 import { CreateProductDTO, DeleteProductDTO, ErrorHandler, GetProductByCodeDTO, UpdatePricesDTO, UpdateProductDTO } from "../../../domain";
 
-export class ProductController{
+export class ProductController {
     constructor(
         private readonly productService: ProductService
     ){}
