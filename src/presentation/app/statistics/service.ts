@@ -80,8 +80,6 @@ export class StatisticsService {
             const monthTop = this.getTop(monthBudgets);
             const yearTop = this.getTop(yearBudgets);
 
-            console.log(monthQuantity, yearQuantity, mostSelledOnMonth, mostSelledOnYear, monthTop, yearTop);
-
             return {
                 monthQuantity,
                 yearQuantity,

@@ -44,10 +44,10 @@ export class MongoProductDataSource implements ProductDataSource {
         }
     }
 
-    public async getBySeries(series: string): Promise<ProductEntity[] | undefined> {
+    public async getBySeries(serie: string): Promise<ProductEntity[] | undefined> {
         try {
             const products = await ProductModel.find({ 
-                code: { $regex: new RegExp('^' + series, 'i') }
+                code: { $regex: new RegExp('^' + serie, 'i') }
             });
 
             if (!products || !products.length) {

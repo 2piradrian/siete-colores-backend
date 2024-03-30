@@ -20,8 +20,8 @@ export class ProductRepository_I implements ProductRepository {
         return this.dataSource.getByCodes(codes);
     }
 
-    public getBySeries(series: string): Promise<ProductEntity[] | undefined> {
-        return this.dataSource.getBySeries(series);
+    public getBySeries(serie: string): Promise<ProductEntity[] | undefined> {
+        return this.dataSource.getBySeries(serie);
     }
 
     public create(product: ProductEntity): Promise<ProductEntity> {

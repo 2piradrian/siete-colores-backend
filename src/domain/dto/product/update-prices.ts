@@ -2,21 +2,21 @@ import { ErrorType } from "../../error/error-type";
 
 export class UpdatePricesDTO {
     private constructor(
-        public series: string,
+        public serie: string,
         public percent: number,
     ){}
 
     static create(object: {[key: string]: any}): [string?, UpdatePricesDTO?] {
-        const { series, percent } = object;
+        const { serie, percent } = object;
 
-        if (!series || !percent) {
+        if (!serie || percent === undefined) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof series !== 'string' || typeof percent !== 'number') {
+        if (typeof serie !== 'string' || typeof percent !== 'number') {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdatePricesDTO(series, percent)];
+        return [undefined, new UpdatePricesDTO(serie, percent)];
     }
 }

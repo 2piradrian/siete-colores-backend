@@ -48,14 +48,14 @@ export class ProductService {
 
     public async updatePrices(dto: UpdatePricesDTO) {
         try {
-            const products = await this.repository.getBySeries(dto.series);
+            const products = await this.repository.getBySeries(dto.serie);
 
             if (!products || !products.length) {
                 return;
             }
 
             products.forEach(product => {
-                product.price = product.price + (product.price * dto.percent);
+                product.price = product.price + (product.price * ( dto.percent / 100 ));
             });
 
             return await this.repository.updateList(products);
