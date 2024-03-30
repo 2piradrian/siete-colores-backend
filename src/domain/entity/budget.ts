@@ -16,8 +16,8 @@ export class BudgetEntity {
             _id || id,
             products,
             client,
+            total,
             date,
-            total
         );
     }
 }

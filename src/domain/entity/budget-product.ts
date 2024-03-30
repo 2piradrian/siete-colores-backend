@@ -1,19 +1,21 @@
 export class BudgetProductEntity {
     private constructor(
-        public code: string, // we need just the code
-        public name: string, // and the name for the reference
+        public code: string,
+        public name: string,
         public quantity: number,
-        public total: number,
+        public price: number,
+        public quantityPrice: number
     ){}
 
     static fromObject(object: {[key: string]: any}): BudgetProductEntity {
-        const { code, name, quantity, total } = object;
+        const { code, name, quantity, price, quantityPrice } = object;
 
         return new BudgetProductEntity(
             code,
             name,
             quantity,
-            total
+            price,
+            quantityPrice
         );
     }
 }

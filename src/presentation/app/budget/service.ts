@@ -40,7 +40,8 @@ export class BudgetService {
                     code: product.code,
                     name: productDB.name,
                     quantity: product.quantity,
-                    total: productDB.price * product.quantity
+                    price: productDB.price,
+                    quantityPrice: productDB.price * product.quantity
                 });
 
                 products.push(entity);
@@ -53,7 +54,7 @@ export class BudgetService {
             const budget = BudgetEntity.fromObject({
                 products: products,
                 client: dto.client,
-                total: products.reduce((acc, product) => acc + product.total, 0),
+                total: products.reduce((acc, product) => acc + product.quantityPrice, 0),
                 date: new Date(),
             });
 

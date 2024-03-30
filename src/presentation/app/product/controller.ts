@@ -62,7 +62,7 @@ export class ProductController {
     }
 
     delete = (req: Request, res: Response) => {
-        const [error, dto] = DeleteProductDTO.create(req.params);
+        const [error, dto] = DeleteProductDTO.create(req.query);
 
         if (error) {
             return ErrorHandler.handle(error, res);

@@ -38,7 +38,7 @@ export class BudgetController {
     }
 
     delete = (req: Request, res: Response) => {
-        const [error, dto] = DeleteBudgetDTO.create(req.body);
+        const [error, dto] = DeleteBudgetDTO.create(req.query);
 
         if (error) {
             return ErrorHandler.handle(error, res);
