@@ -2,16 +2,16 @@
 
 REM Lanzador para sietecolores-sys
 
-REM Ejecutar "npm run dev" en la carpeta server
+REM Ejecutar "npm start" en la carpeta server
 cd /d "%~dp0server"
-start cmd /k npm run dev
+start cmd /k npm start
 
 REM Esperar unos segundos para que el servidor se inicie
 timeout /t 5
 
-REM Ejecutar "npm run dev" en la carpeta client
+REM Ejecutar "npm start" en la carpeta client
 cd /d "%~dp0client"
-start cmd /k npm run start
+start cmd /k npm start
 
 REM Abrir el navegador en "localhost:3000"
-start "" "http://localhost:4444"
+start "" "http://localhost:3000"
