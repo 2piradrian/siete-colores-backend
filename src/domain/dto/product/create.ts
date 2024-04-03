@@ -26,6 +26,12 @@ export class CreateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
+        for (const key in object) {
+            if (typeof object[key] === 'string') {
+                object[key] = object[key].trim();
+            }
+        }
+
         return [undefined, new CreateProductDTO(code, name, priceNumber, size, category)];
     }
 }

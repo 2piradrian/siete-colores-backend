@@ -17,6 +17,12 @@ export class CreateBudgetDTO {
             return [ErrorType.InvalidFields];
         }
 
+        for (const key in object) {
+            if (typeof object[key] === 'string') {
+                object[key] = object[key].trim();
+            }
+        }
+
         return [undefined, new CreateBudgetDTO(products, client)];
     }
 }

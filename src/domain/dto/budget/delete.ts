@@ -16,6 +16,12 @@ export class DeleteBudgetDTO {
             return [ErrorType.InvalidFields];
         }
 
+        for (const key in object) {
+            if (typeof object[key] === 'string') {
+                object[key] = object[key].trim();
+            }
+        }
+
         return [undefined, new DeleteBudgetDTO(id)];
     }
 }
