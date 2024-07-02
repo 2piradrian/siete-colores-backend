@@ -10,6 +10,7 @@ export class AppRouter {
         router.use('/api/products', ProductRoutes.routes)
         router.use('/api/budgets', BudgetRoutes.routes)
         router.use('/api/statistics', StatisticsRoutes.routes)
+        router.use('/api/categories')
 
         return router;
     }
