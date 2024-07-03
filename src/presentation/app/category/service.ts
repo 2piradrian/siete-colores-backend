@@ -40,13 +40,17 @@ export class CategoryService {
             if (categories.length === 0) {
                 throw new Error(ErrorType.NotFound);
             }
+
+            let exists = false;
             for (const category of categories) {
                 if (category.name === dto.name) {
-                    break;
+                    exists = true;
                 }
+            }
+            if (!exists) {
                 throw new Error(ErrorType.NotFound);
             }
-            
+
             const products = await this.productRepository.getAll();
             if (products.length > 0) {
                 for (const product of products) {
@@ -55,6 +59,7 @@ export class CategoryService {
                     }
                 }
             }
+            
             return await this.categoryRepository.delete(dto.name);
         }
         catch(error){

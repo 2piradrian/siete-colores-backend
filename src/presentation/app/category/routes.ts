@@ -10,11 +10,11 @@ export class CategoryRoutes {
         const service = new CategoryService();
         const controller = new CategoryController(service);
 
-        router.get("/get-all");
+        router.get("/get-all", controller.getAll);
 
         router.post("/create", [SecretValidator.validate], controller.create );
 
-        router.put("/delete", [SecretValidator.validate], controller.delete);
+        router.delete("/delete", [SecretValidator.validate], controller.delete);
         
         return router;
     }
