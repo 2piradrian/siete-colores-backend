@@ -1,9 +1,10 @@
 import { CreateCategoryDTO, DeleteCategoryDTO, ErrorType, ProductEntity } from "../../../domain";
-import { CategoryRepository_I } from "../../../infrastructure"
+import { CategoryRepository_I, ProductRepository_I } from "../../../infrastructure"
 
 export class CategoryService {
     constructor(
-        private readonly categoryRepository = new CategoryRepository_I()
+        private readonly categoryRepository = new CategoryRepository_I(),
+        private readonly productRepository = new ProductRepository_I()
     ){}
 
     public async getAll() {
@@ -35,6 +36,25 @@ export class CategoryService {
 
     public async delete(dto: DeleteCategoryDTO) {
         try {
+            const categories = await this.categoryRepository.getAll();
+            if (categories.length === 0) {
+                throw new Error(ErrorType.NotFound);
+            }
+            for (const category of categories) {
+                if (category.name === dto.name) {
+                    break;
+                }
+                throw new Error(ErrorType.NotFound);
+            }
+            
+            const products = await this.productRepository.getAll();
+            if (products.length > 0) {
+                for (const product of products) {
+                    if (product.category === dto.name) {
+                        throw new Error(ErrorType.IsBeingUsed);
+                    }
+                }
+            }
             return await this.categoryRepository.delete(dto.name);
         }
         catch(error){

@@ -7,4 +7,5 @@ export enum ErrorType {
 	Forbidden               = "Forbidden",
 	NotFound                = "Not found",
 	AlreadyExists           = "Already exists",
+	IsBeingUsed 			= "Is being used",
 }
