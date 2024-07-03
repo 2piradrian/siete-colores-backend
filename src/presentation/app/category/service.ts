@@ -1,33 +1,41 @@
+import { CreateCategoryDTO, DeleteCategoryDTO, ErrorType, ProductEntity } from "../../../domain";
+import { CategoryRepository_I } from "../../../infrastructure"
+
 export class CategoryService {
     constructor(
-        //private readonly repository = new CategoryRepository_I()
+        private readonly categoryRepository = new CategoryRepository_I()
     ){}
 
     public async getAll() {
         try {
-            //return await this.repository.getAll();
+            return await this.categoryRepository.getAll();
         }
         catch(error){
             throw error
         }
     }
 
-    public async create() {
+    public async create(dto: CreateCategoryDTO) {
         try {
-            //const product = ProductEntity.fromObject(dto);
+            const categories = await this.categoryRepository.getAll();
 
-            //return await this.repository.create(product);
+            for (const category of categories) {
+                if (category.name === dto.name) {
+                    throw new Error(ErrorType.AlreadyExists); 
+                }
+            }
+
+            const category = ProductEntity.fromObject(dto);
+            return await this.categoryRepository.create(category);
         }
         catch(error){
             throw error
         }
     }
 
-    public async delete() {
+    public async delete(dto: DeleteCategoryDTO) {
         try {
-            //const product = ProductEntity.fromObject(dto);
-
-            //return await this.repository.update(product);
+            return await this.categoryRepository.delete(dto.name);
         }
         catch(error){
             throw error

@@ -4,4 +4,7 @@ export enum ErrorType {
 	InternalError           = "Internal error",
 	Unknown                 = "Unknown error",
 	Unauthorized            = "Unauthorized",
+	Forbidden               = "Forbidden",
+	NotFound                = "Not found",
+	AlreadyExists           = "Already exists",
 }
