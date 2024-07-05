@@ -23,6 +23,6 @@ export class CreateBudgetDTO {
             }
         }
 
-        return [undefined, new CreateBudgetDTO(products, client)];
+        return [undefined, new CreateBudgetDTO(object.products, object.client)];
     }
 }

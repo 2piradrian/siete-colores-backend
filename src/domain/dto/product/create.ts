@@ -32,6 +32,6 @@ export class CreateProductDTO {
             }
         }
 
-        return [undefined, new CreateProductDTO(code, name, priceNumber, size, category)];
+        return [undefined, new CreateProductDTO(object.code, object.name, object.price, object.size, object.category)];
     }
 }

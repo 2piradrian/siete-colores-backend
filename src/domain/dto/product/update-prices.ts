@@ -23,6 +23,6 @@ export class UpdatePricesDTO {
             }
         }
 
-        return [undefined, new UpdatePricesDTO(serie, percent)];
+        return [undefined, new UpdatePricesDTO(object.serie, object.percent)];
     }
 }

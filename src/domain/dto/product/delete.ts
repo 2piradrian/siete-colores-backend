@@ -23,6 +23,6 @@ export class DeleteProductDTO {
         }
 
 
-        return [undefined, new DeleteProductDTO(code)];
+        return [undefined, new DeleteProductDTO(object.code)];
     }
 }

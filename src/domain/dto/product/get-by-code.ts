@@ -22,6 +22,6 @@ export class GetProductByCodeDTO {
             }
         }
 
-        return [undefined, new GetProductByCodeDTO(code)];
+        return [undefined, new GetProductByCodeDTO(object.code)];
     }
 }

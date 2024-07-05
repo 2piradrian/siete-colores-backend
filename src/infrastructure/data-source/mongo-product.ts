@@ -79,7 +79,7 @@ export class MongoProductDataSource implements ProductDataSource {
             const productModel = await ProductModel.findOne({ code: product.code });
 
             if (!productModel) {
-                throw ErrorType.Unknown;
+                throw ErrorType.NotFound;
             }
 
             productModel.set(product);

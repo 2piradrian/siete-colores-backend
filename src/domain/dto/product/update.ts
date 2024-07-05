@@ -32,6 +32,6 @@ export class UpdateProductDTO {
             }
         }
 
-        return [undefined, new UpdateProductDTO(code, name, priceNumber, size, category)];
+        return [undefined, new UpdateProductDTO(object.code, object.name, object.price, object.size, object.category)];
     }
 }

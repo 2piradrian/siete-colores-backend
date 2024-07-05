@@ -22,6 +22,6 @@ export class GetBudgetByIdDTO {
             }
         }
 
-        return [undefined, new GetBudgetByIdDTO(id)];
+        return [undefined, new GetBudgetByIdDTO(object.id)];
     }
 }

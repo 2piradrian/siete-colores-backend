@@ -22,6 +22,6 @@ export class DeleteBudgetDTO {
             }
         }
 
-        return [undefined, new DeleteBudgetDTO(id)];
+        return [undefined, new DeleteBudgetDTO(object.id)];
     }
 }

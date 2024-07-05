@@ -22,6 +22,6 @@ export class CreateCategoryDTO {
             }
         }
 
-        return [undefined, new CreateCategoryDTO(name)];
+        return [undefined, new CreateCategoryDTO(object.name)];
     }
 }

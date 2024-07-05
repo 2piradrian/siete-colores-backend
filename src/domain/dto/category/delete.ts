@@ -16,6 +16,6 @@ export class DeleteCategoryDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new DeleteCategoryDTO(name)];
+        return [undefined, new DeleteCategoryDTO(object.name)];
     }
 }
