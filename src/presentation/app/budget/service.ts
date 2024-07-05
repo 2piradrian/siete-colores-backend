@@ -51,10 +51,15 @@ export class BudgetService {
                 throw new Error(ErrorType.Unknown);
             }
 
+            const subtotal = products.reduce((acc, product) => acc + product.quantityPrice, 0);
+            const total = subtotal - (subtotal * dto.discount / 100);
+
             const budget = BudgetEntity.fromObject({
                 products: products,
                 client: dto.client,
-                total: products.reduce((acc, product) => acc + product.quantityPrice, 0),
+                subtotal: subtotal,
+                discount: dto.discount,
+                total: total,
                 date: new Date(),
             });
 
