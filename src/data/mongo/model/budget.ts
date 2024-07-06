@@ -13,6 +13,14 @@ const budgetSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    subtotal: {
+        type: Number,
+        required: true,
+    },
+    discount: {
+        type: Number,
+        required: true,
+    },
     total: {
         type: Number,
         required: true,

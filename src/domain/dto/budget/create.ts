@@ -4,13 +4,22 @@ export class CreateBudgetDTO {
     private constructor(
         public products: { code: string, quantity: number}[],
         public client: string,
+        public discount: number,
     ){}
 
     static create(object: {[key: string]: any}): [string?, CreateBudgetDTO?] {
-        const { products, client } = object;
+        const { products, client, discount } = object;
 
         if (!products || !client) {
             return [ErrorType.MissingFields];
+        }
+
+        if (discount === undefined) {
+            object.discount = 0;
+        }
+
+        if (typeof discount !== 'number'){
+            object.discount = parseFloat(discount);
         }
 
         if (!Array.isArray(products) || typeof client !== 'string') {
@@ -23,6 +32,6 @@ export class CreateBudgetDTO {
             }
         }
 
-        return [undefined, new CreateBudgetDTO(object.products, object.client)];
+        return [undefined, new CreateBudgetDTO(object.products, object.client, object.discount)];
     }
 }

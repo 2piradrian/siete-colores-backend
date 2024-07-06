@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CreateCategoryDTO, ErrorHandler } from "../../../domain";
 import { CategoryService } from "./service";
+import { request } from "http";
 
 export class CategoryController {
     constructor(
@@ -26,8 +27,8 @@ export class CategoryController {
     }
 
     delete = (req: Request, res: Response) => {
-        const [error, dto] = CreateCategoryDTO.create(req.body);
-        
+        const [error, dto] = CreateCategoryDTO.create(req.query);
+
         if (error) {
             return ErrorHandler.handle(error, res);
         }
