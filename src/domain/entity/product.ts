@@ -6,7 +6,7 @@ export class ProductEntity {
         public price: number,
         public size: string,
         public category: string,
-        public keywords: string[] = []
+        public keywords: string[]
     ){}
 
     static fromObject(object: {[key: string]: any}): ProductEntity {

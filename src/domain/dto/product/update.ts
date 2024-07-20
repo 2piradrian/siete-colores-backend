@@ -23,6 +23,10 @@ export class UpdateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
+        if (!Array.isArray(keywords)) {
+            return [ErrorType.InvalidFields];
+        }
+
         if (priceNumber <= 0) {
             return [ErrorType.InvalidFields];
         }
@@ -33,6 +37,8 @@ export class UpdateProductDTO {
             }
         }
 
-        return [undefined, new UpdateProductDTO(object.code, object.name, object.price, object.size, object.category)];
+        object.keywords = keywords.filter((keyword: string) => typeof keyword === 'string' && keyword.trim().length > 0);
+
+        return [undefined, new UpdateProductDTO(object.code, object.name, object.price, object.size, object.category, object.keywords)];
     }
 }
