@@ -6,13 +6,14 @@ export class CreateProductDTO {
         public name: string,
         public price: number,
         public size: string,
-        public category: string
+        public category: string,
+        public keywords: string[] = []
     ){}
 
     static create(object: {[key: string]: any}): [string?, CreateProductDTO?] {
-        const { code, name, price, size, category } = object;
+        const { code, name, price, size, category, keywords } = object;
 
-        if (!code || !name || price == undefined || !size || !category) {
+        if (!code || !name || price == undefined || !size || !category || keywords == undefined) {
             return [ErrorType.MissingFields];
         }
         
