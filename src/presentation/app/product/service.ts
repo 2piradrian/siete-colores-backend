@@ -55,7 +55,8 @@ export class ProductService {
             }
 
             products.forEach(product => {
-                product.price = product.price + (product.price * ( dto.percent / 100 ));
+                product.price = product.price + (product.price * (dto.percent / 100));
+                product.price = Math.round(product.price / 10) * 10;
             });
 
             return await this.repository.updateList(products);
