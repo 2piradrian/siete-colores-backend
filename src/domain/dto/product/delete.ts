@@ -1,3 +1,4 @@
+import { Sanitizer, TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class DeleteProductDTO {
@@ -5,24 +6,17 @@ export class DeleteProductDTO {
         public code: string,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, DeleteProductDTO?] {
-        const { code } = object;
+    static create(data: {[key: string]: any}): [string?, DeleteProductDTO?] {
+        Sanitizer.trimStrings(data);
 
-        if (!code) {
+        if (!TypeChecker.areDefined([data.code])) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof code !== 'string') {
+        if (!TypeChecker.areStrings([data.code])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
-        }
-
-
-        return [undefined, new DeleteProductDTO(object.code)];
+        return [undefined, new DeleteProductDTO(data.code)];
     }
 }

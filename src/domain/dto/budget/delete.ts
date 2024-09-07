@@ -1,3 +1,5 @@
+import { TypeChecker } from "../../../config";
+import { Sanitizer } from "../../../config/utils/sanitizer";
 import { ErrorType } from "../../error/error-type";
 
 export class DeleteBudgetDTO {
@@ -5,23 +7,17 @@ export class DeleteBudgetDTO {
         public id: string,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, DeleteBudgetDTO?] {
-        const { id } = object;
+    static create(data: {[key: string]: any}): [string?, DeleteBudgetDTO?] {
+        Sanitizer.trimStrings(data);
 
-        if (!id) {
+        if (!TypeChecker.areDefined([data.id])) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof id !== 'string') {
+        if (!TypeChecker.areStrings([data.id])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
-        }
-
-        return [undefined, new DeleteBudgetDTO(object.id)];
+        return [undefined, new DeleteBudgetDTO(data.id)];
     }
 }

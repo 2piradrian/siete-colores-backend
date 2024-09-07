@@ -1,3 +1,4 @@
+import { TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class CreateCategoryDTO {
@@ -5,23 +6,16 @@ export class CreateCategoryDTO {
         public name: string
     ){}
 
-    static create(object: {[key: string]: any}): [string?, CreateCategoryDTO?] {
-        const { name } = object;
+    static create(data: {[key: string]: any}): [string?, CreateCategoryDTO?] {
 
-        if (!name) {
+        if (!TypeChecker.areDefined([data.name])) {
             return [ErrorType.MissingFields];
         }
-        
-        if (typeof name !== 'string') {
+
+        if (!TypeChecker.areStrings([data.name])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
-        }
-
-        return [undefined, new CreateCategoryDTO(object.name)];
+        return [undefined, new CreateCategoryDTO(data.name)];
     }
 }

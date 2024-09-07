@@ -1,3 +1,4 @@
+import { Sanitizer, TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class UpdateProductDTO {
@@ -7,38 +8,33 @@ export class UpdateProductDTO {
         public price: number,
         public size: string,
         public category: string,
-        public keywords: string[] = []
+        public description: string,
+        public keywords: string[],
     ){}
 
-    static create(object: {[key: string]: any}): [string?, UpdateProductDTO?] {
-        const { code, name, price, size, category, keywords } = object;
+    static create(data: {[key: string]: any}): [string?, UpdateProductDTO?] {
+        Sanitizer.trimStrings(data);
 
-        if (!code || !name || price === undefined || !size || !category || keywords === undefined) {
+        if (!TypeChecker.areDefined([data.code, data.name, data.price, data.size, data.category, data.keywords])) {
             return [ErrorType.MissingFields];
         }
 
-        const priceNumber = parseFloat(price);
+        if (!TypeChecker.areDefined([data.description])) {
+            data.description = '';
+        }
 
-        if (typeof code !== 'string' || typeof name !== 'string' || typeof priceNumber !== 'number' || typeof size !== 'string' || typeof category !== 'string') {
+        data.price = parseFloat(data.price);
+        if (!TypeChecker.areNumbers([data.price]) || data.price <= 0) {
             return [ErrorType.InvalidFields];
         }
 
-        if (!Array.isArray(keywords)) {
+        if (!TypeChecker.areStrings([data.code, data.name, data.size, data.category, data.description])) {
+            return [ErrorType.InvalidFields];
+        }
+        if (!Array.isArray(data.keywords) || !TypeChecker.areStrings(data.keywords)) {
             return [ErrorType.InvalidFields];
         }
 
-        if (priceNumber <= 0) {
-            return [ErrorType.InvalidFields];
-        }
-
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
-        }
-
-        object.keywords = keywords.filter((keyword: string) => typeof keyword === 'string' && keyword.trim().length > 0);
-
-        return [undefined, new UpdateProductDTO(object.code, object.name, object.price, object.size, object.category, object.keywords)];
+        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.description, data.keywords)];
     }
 }

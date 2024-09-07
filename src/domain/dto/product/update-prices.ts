@@ -1,3 +1,4 @@
+import { Sanitizer, TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class UpdatePricesDTO {
@@ -6,23 +7,22 @@ export class UpdatePricesDTO {
         public percent: number,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, UpdatePricesDTO?] {
-        const { serie, percent } = object;
+    static create(data: {[key: string]: any}): [string?, UpdatePricesDTO?] {
+        Sanitizer.trimStrings(data);
 
-        if (!serie || percent === undefined) {
+        if (!TypeChecker.areDefined([data.serie, data.percent])) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof serie !== 'string' || typeof percent !== 'number') {
+        data.percent = parseFloat(data.percent);
+        if (!TypeChecker.areNumbers([data.percent])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
+        if (!TypeChecker.areStrings([data.serie])) {
+            return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdatePricesDTO(object.serie, object.percent)];
+        return [undefined, new UpdatePricesDTO(data.serie, data.percent)];
     }
 }

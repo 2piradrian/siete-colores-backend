@@ -22,10 +22,14 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     keywords: {
         type: [String],
         required: true,
-    }
+    },
 });
 
 export const ProductModel = mongoose.model("Product", productSchema);

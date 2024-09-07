@@ -1,3 +1,4 @@
+import { Sanitizer, TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class CreateBudgetDTO {
@@ -7,31 +8,25 @@ export class CreateBudgetDTO {
         public discount: number,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, CreateBudgetDTO?] {
-        const { products, client, discount } = object;
-
-        if (!products || !client) {
+    static create(data: {[key: string]: any}): [string?, CreateBudgetDTO?] {
+        Sanitizer.trimStrings(data);
+        
+        if(!TypeChecker.areDefined([data.products, data.client])) {
             return [ErrorType.MissingFields];
         }
 
-        if (discount === undefined) {
-            object.discount = 0;
+        if (data.discount === undefined) {
+            data.discount = 0;
         }
-
-        if (typeof discount !== 'number'){
-            object.discount = parseFloat(discount);
-        }
-
-        if (!Array.isArray(products) || typeof client !== 'string') {
+        data.discount = parseFloat(data.discount);
+        if (!TypeChecker.areNumbers([data.discount])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
+        if (!TypeChecker.areStrings([data.client]) || !Array.isArray(data.products)) {
+            return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new CreateBudgetDTO(object.products, object.client, object.discount)];
+        return [undefined, new CreateBudgetDTO(data.products, data.client, data.discount)];
     }
 }

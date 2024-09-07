@@ -1,3 +1,4 @@
+import { Sanitizer, TypeChecker } from "../../../config";
 import { ErrorType } from "../../error/error-type";
 
 export class GetBudgetByIdDTO {
@@ -5,23 +6,17 @@ export class GetBudgetByIdDTO {
         public id: string,
     ){}
 
-    static create(object: {[key: string]: any}): [string?, GetBudgetByIdDTO?] {
-        const { id } = object;
+    static create(data: {[key: string]: any}): [string?, GetBudgetByIdDTO?] {
+        Sanitizer.trimStrings(data);
 
-        if (!id) {
+        if (!TypeChecker.areDefined([data.id])) {
             return [ErrorType.MissingFields];
         }
 
-        if (typeof id !== 'string') {
+        if (!TypeChecker.areStrings([data.id])) {
             return [ErrorType.InvalidFields];
         }
 
-        for (const key in object) {
-            if (typeof object[key] === 'string') {
-                object[key] = object[key].trim();
-            }
-        }
-
-        return [undefined, new GetBudgetByIdDTO(object.id)];
+        return [undefined, new GetBudgetByIdDTO(data.id)];
     }
 }
