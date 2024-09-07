@@ -1,7 +1,7 @@
 export class TypeChecker {
 
     static areStrings(value: any[]): boolean {
-        return !value.every((item) => typeof item === 'string');
+        return value.every((item) => typeof item === 'string');
     }
 
     static areNumbers(value: any[]): boolean {
