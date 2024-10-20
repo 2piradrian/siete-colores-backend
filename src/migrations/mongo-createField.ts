@@ -7,8 +7,8 @@ async function createdField() {
         await mongo.connect();
 
         const result = await ProductModel.updateMany(
-            { stock: { $exists: false } },
-            { $set: { stock: null } },
+            { subcategories: { $exists: false } },
+            { $set: { subcategories: [] } },
         );
 
         console.log("Se han actualizado", result.modifiedCount, "documentos");

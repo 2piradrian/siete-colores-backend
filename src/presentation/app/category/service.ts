@@ -1,4 +1,4 @@
-import { CreateCategoryDTO, DeleteCategoryDTO, ErrorType, ProductEntity } from "../../../domain";
+import { CategoryEntity, CreateCategoryDTO, DeleteCategoryDTO, ErrorType, ProductEntity } from "../../../domain";
 import { CategoryRepository_I, ProductRepository_I } from "../../../infrastructure"
 
 export class CategoryService {
@@ -26,7 +26,7 @@ export class CategoryService {
                 }
             }
 
-            const category = ProductEntity.fromObject(dto);
+            const category = CategoryEntity.fromObject(dto);
             return await this.categoryRepository.create(category);
         }
         catch(error){
@@ -37,9 +37,6 @@ export class CategoryService {
     public async delete(dto: DeleteCategoryDTO) {
         try {
             const categories = await this.categoryRepository.getAll();
-            if (categories.length === 0) {
-                throw new Error(ErrorType.NotFound);
-            }
 
             let exists = false;
             for (const category of categories) {
