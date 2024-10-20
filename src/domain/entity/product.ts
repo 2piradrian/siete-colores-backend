@@ -7,11 +7,13 @@ export class ProductEntity {
         public size: string,
         public category: string,
         public description: string,
-        public keywords: string[]
+        public keywords: string[],
+        public stock: number | null = null,
+        public createdAt: Date,
     ){}
 
     static fromObject(object: {[key: string]: any}): ProductEntity {
-        const { _id, id, code, name, price, category, size, description, keywords } = object;
+        const { _id, id, code, name, price, category, size, description, keywords, stock, createdAt } = object;
 
         return new ProductEntity(
             _id || id,
@@ -21,7 +23,9 @@ export class ProductEntity {
             size,
             category,
             description,
-            keywords
+            keywords,
+            stock,
+            createdAt,
         );
     }
 }

@@ -82,7 +82,10 @@ export class MongoProductDataSource implements ProductDataSource {
                 throw ErrorType.NotFound;
             }
 
-            productModel.set(product);
+            const productFromDB = ProductEntity.fromObject(productModel);
+            const updatedProduct = {...productFromDB, ...product};
+
+            productModel.set(updatedProduct);
 
             await productModel.save();
 

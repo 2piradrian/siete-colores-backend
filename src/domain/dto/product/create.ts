@@ -10,6 +10,8 @@ export class CreateProductDTO {
         public category: string,
         public description: string,
         public keywords: string[],
+        public stock: number | null,
+        public createdAt: Date,
     ){}
 
     static create(data: {[key: string]: any}): [string?, CreateProductDTO?] {
@@ -35,6 +37,12 @@ export class CreateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.description, data.keywords)];
+        if (!TypeChecker.areNumbers([data.stock]) && data.stock !== null) {
+            return [ErrorType.InvalidFields];
+        }
+
+        data.createdAt = new Date();
+
+        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.description, data.keywords, data.stock, data.createdAt)];
     }
 }
