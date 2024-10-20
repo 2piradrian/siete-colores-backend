@@ -83,7 +83,11 @@ export class MongoProductDataSource implements ProductDataSource {
             }
 
             const productFromDB = ProductEntity.fromObject(productModel);
-            const updatedProduct = {...productFromDB, ...product};
+            const updatedProduct = {
+                ...productFromDB, 
+                ...product,
+                createdAt: productFromDB.createdAt,
+            };
 
             productModel.set(updatedProduct);
 
