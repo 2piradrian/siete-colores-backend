@@ -8,6 +8,7 @@ export class UpdateProductDTO {
         public price: number,
         public size: string,
         public category: string,
+        public subcategories: string[],
         public description: string,
         public keywords: string[],
         public stock: number | null,
@@ -16,7 +17,7 @@ export class UpdateProductDTO {
     static create(data: {[key: string]: any}): [string?, UpdateProductDTO?] {
         Sanitizer.trimStrings(data);
 
-        if (!TypeChecker.areDefined([data.code, data.name, data.price, data.size, data.category, data.keywords])) {
+        if (!TypeChecker.areDefined([data.code, data.name, data.price, data.size, data.category, data.keywords, data.subcategories])) {
             return [ErrorType.MissingFields];
         }
 
@@ -40,6 +41,6 @@ export class UpdateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.description, data.keywords, data.stock)];
+        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.stock)];
     }
 }

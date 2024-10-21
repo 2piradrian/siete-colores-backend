@@ -8,6 +8,7 @@ export class CreateProductDTO {
         public price: number,
         public size: string,
         public category: string,
+        public subcategories: string[],
         public description: string,
         public keywords: string[],
         public stock: number | null,
@@ -17,7 +18,7 @@ export class CreateProductDTO {
     static create(data: {[key: string]: any}): [string?, CreateProductDTO?] {
         Sanitizer.trimStrings(data);
 
-        if (!TypeChecker.areDefined([data.code, data.name, data.price, data.size, data.category, data.keywords])) {
+        if (!TypeChecker.areDefined([data.code, data.name, data.price, data.size, data.category, data.keywords, data.subcategories])) {
             return [ErrorType.MissingFields];
         }
 
@@ -43,6 +44,6 @@ export class CreateProductDTO {
 
         data.createdAt = new Date();
 
-        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.description, data.keywords, data.stock, data.createdAt)];
+        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.stock, data.createdAt)];
     }
 }
