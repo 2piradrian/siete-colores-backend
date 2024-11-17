@@ -11,7 +11,7 @@ export class UpdateProductDTO {
         public subcategories: string[],
         public description: string,
         public keywords: string[],
-        public stock: number | null,
+        public available: boolean,
     ){}
 
     static create(data: {[key: string]: any}): [string?, UpdateProductDTO?] {
@@ -37,10 +37,10 @@ export class UpdateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        if (!TypeChecker.areNumbers([data.stock]) && data.stock !== null) {
+        if (!TypeChecker.areBooleans([data.available])) {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.stock)];
+        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.available)];
     }
 }

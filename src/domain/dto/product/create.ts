@@ -11,7 +11,7 @@ export class CreateProductDTO {
         public subcategories: string[],
         public description: string,
         public keywords: string[],
-        public stock: number | null,
+        public available: boolean,
         public createdAt: Date,
     ){}
 
@@ -38,12 +38,12 @@ export class CreateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        if (!TypeChecker.areNumbers([data.stock]) && data.stock !== null) {
+        if (!TypeChecker.areBooleans([data.available])) {
             return [ErrorType.InvalidFields];
         }
 
         data.createdAt = new Date();
 
-        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.stock, data.createdAt)];
+        return [undefined, new CreateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.available, data.createdAt)];
     }
 }

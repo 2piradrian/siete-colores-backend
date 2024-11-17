@@ -34,9 +34,9 @@ const productSchema = new mongoose.Schema({
         type: [String],
         required: true,
     },
-    stock: {
-        type: Number || null,
-        required: false,
+    available: {
+        type: Boolean,
+        required: true,
     },
     createdAt: {
         type: Date,

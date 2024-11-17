@@ -9,12 +9,12 @@ export class ProductEntity {
         public subcategories: string[],
         public description: string,
         public keywords: string[],
-        public stock: number | null = null,
+        public available: boolean,
         public createdAt: Date,
     ){}
 
     static fromObject(object: {[key: string]: any}): ProductEntity {
-        const { _id, id, code, name, price, category, subcategories, size, description, keywords, stock, createdAt } = object;
+        const { _id, id, code, name, price, category, subcategories, size, description, keywords, available, createdAt } = object;
 
         return new ProductEntity(
             _id || id,
@@ -26,7 +26,7 @@ export class ProductEntity {
             subcategories,
             description,
             keywords,
-            stock,
+            available,
             createdAt,
         );
     }
