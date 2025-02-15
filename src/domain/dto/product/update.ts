@@ -6,6 +6,7 @@ export class UpdateProductDTO {
         public code: string,
         public name: string,
         public price: number,
+        public offertPrice: number,
         public size: string,
         public category: string,
         public subcategories: string[],
@@ -30,6 +31,13 @@ export class UpdateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
+        if (data.offertPrice) {
+            data.offertPrice = parseFloat(data.offertPrice);
+            if (!TypeChecker.areNumbers([data.offertPrice]) || data.offertPrice <= 0) {
+                return [ErrorType.InvalidFields];
+            }
+        }
+
         if (!TypeChecker.areStrings([data.code, data.name, data.size, data.category, data.description])) {
             return [ErrorType.InvalidFields];
         }
@@ -41,6 +49,6 @@ export class UpdateProductDTO {
             return [ErrorType.InvalidFields];
         }
 
-        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.size, data.category, data.subcategories, data.description, data.keywords, data.available)];
+        return [undefined, new UpdateProductDTO(data.code, data.name, data.price, data.offertPrice, data.size, data.category, data.subcategories, data.description, data.keywords, data.available)];
     }
 }
