@@ -36,12 +36,14 @@ export class BudgetService {
                     throw new Error(ErrorType.Unknown);
                 }
 
+                const finalPrice = productDB.offertPrice || productDB.price;
+
                 const entity = BudgetProductEntity.fromObject({
                     code: product.code,
                     name: productDB.name,
                     quantity: product.quantity,
-                    price: productDB.price,
-                    quantityPrice: productDB.price * product.quantity
+                    price: finalPrice,
+                    quantityPrice: finalPrice * product.quantity
                 });
 
                 products.push(entity);
